@@ -1,12 +1,13 @@
 name: CI-CD
+
 on:
- pull_request:
- branches:
- - develop
- - grupo#
- push:
- branches:
- - develop
+  pull_request:
+    branches:
+      - develop
+      - grupo#
+  push:
+    branches:
+      - develop
 
 jobs:
   build:
