@@ -26,4 +26,4 @@ jobs:
  uses: actions/upload-artifact@v3
  with:
  name: app-jar
- path: target/*.jar
+ path: scripts/mi-proyecto-spring/target/mi-proyecto-spring-1.0-SNAPSHOT.jar
