@@ -1,34 +1,29 @@
 name: CI-CD
-
 on:
-  pull_request:
-    branches:
-      - develop
-      - grupo1   
-  push:
-    branches:
-      - develop
+ pull_request:
+ branches:
+ - develop
+ - grupo#
+ push:
+ branches:
+ - develop
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+ build:
+ runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout del código
-        uses: actions/checkout@v3
-
-      - name: Configurar JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Construcción del proyecto
-        run: mvn clean package
-        working-directory: ./FIS_2530_G1
-        
-      - name: Subir artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-jar
-          path: target/*.jar
+ steps:
+ - name: Checkout del código
+ uses: actions/checkout@v3
+ - name: Configurar JDK 17
+ uses: actions/setup-java@v3
+ with:
+ distribution: 'temurin'
+ java-version: '17'
+ - name: Construcción del proyecto
+ run: mvn clean package
+ - name: Subir artefacto
+ uses: actions/upload-artifact@v3
+ with:
+ name: app-jar
+ path: target/*.jar
