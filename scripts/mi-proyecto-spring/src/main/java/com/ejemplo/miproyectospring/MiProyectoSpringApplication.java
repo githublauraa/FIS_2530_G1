@@ -10,7 +10,7 @@ public class MiProyectoSpringApplication {
         // Ejecutar Spring Boot
         SpringApplication.run(MiProyectoSpringApplication.class, args);
         
-        // Tu lógica de suma
+        // Lógica de suma
         System.out.println("=== MI PROGRAMA DE SUMA ===");
         int numero1 = 15;
         int numero2 = 25;
