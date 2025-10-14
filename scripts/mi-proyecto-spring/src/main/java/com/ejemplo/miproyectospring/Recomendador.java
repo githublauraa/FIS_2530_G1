@@ -5,7 +5,7 @@ public class Recomendador implements Observador {
 
     @Override
     public void actualizar(String categoria, int respuesta) {
-        System.out.println("\n💡 Recomendación: " + generarRecomendacion(categoria, respuesta));
+        System.out.println("\n Recomendación: " + generarRecomendacion(categoria, respuesta));
     }
 
     private String generarRecomendacion(String categoria, int respuesta) {
