@@ -3,6 +3,8 @@ package com.ejemplo.miproyectospring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.ejemplo.miproyectospring.Capacalculo.*;
+
 @SpringBootApplication
 public class MiProyectoSpringApplication {
 
@@ -10,13 +12,11 @@ public class MiProyectoSpringApplication {
         // Ejecutar Spring Boot
         SpringApplication.run(MiProyectoSpringApplication.class, args);
         
-        // Lógica de suma
-        System.out.println("=== MI PROGRAMA DE SUMA ===");
-        int numero1 = 15;
-        int numero2 = 25;
-        int resultado = numero1 + numero2;
-        
-        System.out.println("La suma de " + numero1 + " + " + numero2 + " = " + resultado);
-        System.out.println("¡Spring Boot está ejecutándose en http://localhost:8080 !");
+        RespuestasFormulario respuestas= new RespuestasFormulario();
+
+        FormularioHuella formulario = new FormularioHuella(CalculadoraHuellaCarbono.getInstance());
+
+        double puntaje=formulario.iniciarFormulario(respuestas);
+        System.out.print("tu puntaje fue de " + puntaje);
     }
 }
