@@ -21,52 +21,76 @@ jobs:
         
     - name: Compilar todo el proyecto Java
       run: |
+        echo "🔧 Compilando proyecto..."
         mkdir -p target/classes
-        find . -name "*.java" > sources.txt
+        find scripts/bioprint/src/main/java -name "*.java" > sources.txt
         javac -d target/classes @sources.txt
+        echo "Compilación completada"
       
-    - name: Verificar cálculos específicos
+    - name: Crear y ejecutar pruebas personalizadas
       run: |
-        cd target/classes
-        echo "Creando clase de prueba para cálculos..."
-        cat > TestCalculos.java << 'EOF'
+        echo "Creando clase de prueba..."
+        cat > target/classes/TestCalculos.java << 'EOF'
+        import grupo1.*;
+
         public class TestCalculos {
             public static void main(String[] args) {
                 boolean todosTestsPasaron = true;
-                
-                grupo1.EstrategiaCarro carro = new grupo1.EstrategiaCarro();
+                System.out.println("===== INICIO DE PRUEBAS =====");
+
+                EstrategiaCarro carro = new EstrategiaCarro();
                 double resultadoCarro = carro.calcularCO2(10);
                 if (Math.abs(resultadoCarro - 2.1) < 0.01) {
-                    System.out.println("CORRECTO EstrategiaCarro: " + resultadoCarro);
+                    System.out.println("Correcto EstrategiaCarro: " + resultadoCarro);
                 } else {
-                    System.out.println("ERROR EstrategiaCarro: esperado 2.1, obtenido " + resultadoCarro);
+                    System.out.println("Error EstrategiaCarro: esperado 2.1, obtenido " + resultadoCarro);
                     todosTestsPasaron = false;
                 }
 
-                grupo1.EstrategiaBus bus = new grupo1.EstrategiaBus();
+                EstrategiaBus bus = new EstrategiaBus();
                 double resultadoBus = bus.calcularCO2(10);
                 if (Math.abs(resultadoBus - 1.0) < 0.01) {
-                    System.out.println("CORRECTO EstrategiaBus: " + resultadoBus);
+                    System.out.println("Correcto EstrategiaBus: " + resultadoBus);
                 } else {
-                    System.out.println("ERROR EstrategiaBus: esperado 1.0, obtenido " + resultadoBus);
+                    System.out.println("Error EstrategiaBus: esperado 1.0, obtenido " + resultadoBus);
                     todosTestsPasaron = false;
                 }
 
-                grupo1.EstrategiaBici bici = new grupo1.EstrategiaBici();
+                EstrategiaBici bici = new EstrategiaBici();
                 double resultadoBici = bici.calcularCO2(10);
                 if (resultadoBici == 0.0) {
-                    System.out.println("CORRECTO EstrategiaBici: " + resultadoBici);
+                    System.out.println("correcto EstrategiaBici: " + resultadoBici);
                 } else {
-                    System.out.println("ERROR EstrategiaBici: esperado 0.0, obtenido " + resultadoBici);
+                    System.out.println("Error EstrategiaBici: esperado 0.0, obtenido " + resultadoBici);
                     todosTestsPasaron = false;
                 }
 
-                grupo1.GrupoFuentes grupo = new grupo1.GrupoFuentes();
+                GrupoFuentes grupo = new GrupoFuentes();
                 grupo.addFuente(() -> 100.0);
                 grupo.addFuente(() -> 200.0);
                 double totalComposite = grupo.calcularCO2();
                 if (Math.abs(totalComposite - 300.0) < 0.01) {
-                    System.out.println("CORRECTO Composite: " + totalComposite);
+                    System.out.println("Correcto Composite: " + totalComposite);
                 } else {
-                    System.out.println("ERROR Composite: esperado 300.0, obtenido " + totalComposite);
+                    System.out.println("Error Composite: esperado 300.0, obtenido " + totalComposite);
+                    todosTestsPasaron = false;
+                }
+
+                System.out.println("===============================");
+                if (todosTestsPasaron) {
+                    System.out.println("TODAS LAS PRUEBAS PASARON EXITOSAMENTE");
+                } else {
+                    System.out.println("ALGUNAS PRUEBAS FALLARON");
+                    System.exit(1);
+                }
+            }
+        }
+        EOF
+
+        echo "Compilando TestCalculos.java..."
+        javac -cp target/classes -d target/classes target/classes/TestCalculos.java
+
+        echo "Ejecutando pruebas..."
+        cd target/classes
+        java -cp . TestCalculos
 
