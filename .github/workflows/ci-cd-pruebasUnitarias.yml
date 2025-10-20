@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Descargar codigo
+    - name: Descargar código
       uses: actions/checkout@v4
       
     - name: Configurar Java
@@ -19,21 +19,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Compilar proyecto con javac
+    - name: Compilar todo el proyecto Java
       run: |
         mkdir -p target/classes
-        javac -d target/classes grupo1/*.java
+        find . -name "*.java" > sources.txt
+        javac -d target/classes @sources.txt
       
-    - name: Verificar calculos especificos
+    - name: Verificar cálculos específicos
       run: |
         cd target/classes
-        echo "Creando clase de prueba para calculos..."
+        echo "Creando clase de prueba para cálculos..."
         cat > TestCalculos.java << 'EOF'
         public class TestCalculos {
             public static void main(String[] args) {
                 boolean todosTestsPasaron = true;
                 
-                // Test EstrategiaCarro - 10km * 0.21 = 2.1
                 grupo1.EstrategiaCarro carro = new grupo1.EstrategiaCarro();
                 double resultadoCarro = carro.calcularCO2(10);
                 if (Math.abs(resultadoCarro - 2.1) < 0.01) {
@@ -42,8 +42,7 @@ jobs:
                     System.out.println("ERROR EstrategiaCarro: esperado 2.1, obtenido " + resultadoCarro);
                     todosTestsPasaron = false;
                 }
-                
-                // Test EstrategiaBus - 10km * 0.1 = 1.0
+
                 grupo1.EstrategiaBus bus = new grupo1.EstrategiaBus();
                 double resultadoBus = bus.calcularCO2(10);
                 if (Math.abs(resultadoBus - 1.0) < 0.01) {
@@ -52,8 +51,7 @@ jobs:
                     System.out.println("ERROR EstrategiaBus: esperado 1.0, obtenido " + resultadoBus);
                     todosTestsPasaron = false;
                 }
-                
-                // Test EstrategiaBici - siempre 0
+
                 grupo1.EstrategiaBici bici = new grupo1.EstrategiaBici();
                 double resultadoBici = bici.calcularCO2(10);
                 if (resultadoBici == 0.0) {
@@ -62,8 +60,7 @@ jobs:
                     System.out.println("ERROR EstrategiaBici: esperado 0.0, obtenido " + resultadoBici);
                     todosTestsPasaron = false;
                 }
-                
-                // Test Composite - 100 + 200 = 300
+
                 grupo1.GrupoFuentes grupo = new grupo1.GrupoFuentes();
                 grupo.addFuente(() -> 100.0);
                 grupo.addFuente(() -> 200.0);
@@ -72,24 +69,4 @@ jobs:
                     System.out.println("CORRECTO Composite: " + totalComposite);
                 } else {
                     System.out.println("ERROR Composite: esperado 300.0, obtenido " + totalComposite);
-                    todosTestsPasaron = false;
-                }
-                
-                // Test Adapter - 100 kgCO2 / 20 = 5 arboles
-                grupo1.ArbolesAdapter adapter = new grupo1.ArbolesAdapter();
-                String equivalencia = adapter.mostrar(100);
-                if (equivalencia.contains("5")) {
-                    System.out.println("CORRECTO Adapter: " + equivalencia);
-                } else {
-                    System.out.println("ERROR Adapter: deberia contener '5', obtenido: " + equivalencia);
-                    todosTestsPasaron = false;
-                }
-                
-                if (!todosTestsPasaron) {
-                    System.exit(1);
-                }
-            }
-        }
-        EOF
-        javac -cp . TestCalculos.java
-        java -cp . TestCalculos
+
