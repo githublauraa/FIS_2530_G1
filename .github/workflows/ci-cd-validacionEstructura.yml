@@ -1,0 +1,27 @@
+name: Validacion de Estructura
+
+on: [pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Descargar codigo
+      uses: actions/checkout@v4
+      
+    - name: Validar estructura del proyecto
+      run: |
+        echo "Verificando estructura del proyecto..."
+        [ -f "pom.xml" ] && echo "pom.xml encontrado" || echo "pom.xml no encontrado"
+        [ -d "src/main/java/grupo1" ] && echo "Directorio de fuente encontrado" || echo "Directorio de fuente no encontrado"
+        [ -f "src/main/java/grupo1/Main.java" ] && echo "Clase Main encontrada" || echo "Clase Main no encontrada"
+        
+    - name: Verificar compilacion
+      run: mvn compile -q
+      
+    - name: Comprobar archivos compilados
+      run: |
+        echo "Verificando clases compiladas..."
+        [ -d "target/classes/grupo1" ] && echo "Clases compiladas encontradas" || echo "No hay clases compiladas"
+        ls target/classes/grupo1/*.class | wc -l | xargs echo "Numero de archivos class:"
