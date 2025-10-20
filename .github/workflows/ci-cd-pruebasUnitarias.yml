@@ -1,6 +1,6 @@
 name: Pruebas Unitarias
 
-on:
+on: 
   workflow_dispatch:
   push:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
     - name: Compilar proyecto con javac
       run: |
         mkdir -p target/classes
-        javac -d target/classes src/main/java/grupo1/*.java
+        javac -d target/classes grupo1/*.java
       
     - name: Verificar calculos especificos
       run: |
