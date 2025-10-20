@@ -15,14 +15,21 @@ jobs:
     - name: Validar estructura del proyecto
       run: |
         echo "Verificando estructura del proyecto..."
-        [ -d "src/main/java/grupo1" ] && echo "Directorio de fuente encontrado" || echo "Directorio de fuente no encontrado"
-        [ -f "src/main/java/grupo1/Main.java" ] && echo "Clase Main encontrada" || echo "Clase Main no encontrado"
-        [ -f "src/main/java/grupo1/FuenteHuella.java" ] && echo "Interfaz FuenteHuella encontrada" || echo "Interfaz FuenteHuella no encontrado"
-        
+        if [ ! -d "scripts/bioprint/src/main/java/grupo1" ]; then
+          echo "Directorio scripts/bioprint/src/main/java/grupo1 no encontrado"; exit 1;
+        fi
+        if [ ! -f "scripts/bioprint/src/main/java/grupo1/Main.java" ]; then
+          echo "Clase Main no encontrada"; exit 1;
+        fi
+        if [ ! -f "scripts/bioprint/src/main/java/grupo1/FuenteHuella.java" ]; then
+          echo "Interfaz FuenteHuella no encontrada"; exit 1;
+        fi
+        echo "Estructura válida"
+
     - name: Verificar compilacion con javac
       run: |
         mkdir -p target/classes
-        javac -d target/classes src/main/java/grupo1/*.java
+        javac -d target/classes scripts/bioprint/src/main/java/grupo1/*.java
         echo "Compilacion exitosa"
       
     - name: Comprobar archivos compilados
@@ -30,3 +37,4 @@ jobs:
         echo "Verificando clases compiladas..."
         [ -d "target/classes/grupo1" ] && echo "Clases compiladas encontradas" || echo "No hay clases compiladas"
         ls target/classes/grupo1/*.class | wc -l | xargs echo "Numero de archivos class:"
+
