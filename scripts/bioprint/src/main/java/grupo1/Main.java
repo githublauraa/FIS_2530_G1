@@ -71,8 +71,8 @@ public class Main{
             double extraAgua = consumoDucha * 0.05;
             grupo.addFuente(FuenteHuellaFactory.crearFuente(0, 0, extraAgua));
 
-            // 🚗 TRANSPORTE
-            System.out.println("\n🚗 Sección 3: Transporte");
+            // TRANSPORTE
+            System.out.println("\n Sección 3: Transporte");
             System.out.println("1. Carro gasolina  2. Carro diésel  3. Moto  4. Transporte público  5. Bicicleta/caminar  6. Vehículo eléctrico");
             int tipoTransporte = sc.nextInt();
 
@@ -143,7 +143,7 @@ public class Main{
 
             Equivalencia eq = new ArbolesAdapter();
             System.out.println("\n========================================");
-            System.out.printf("🌿 Su huella total anual por persona: %.2f kgCO₂%n", total);
+            System.out.printf(" Su huella total anual por persona: %.2f kgCO₂%n", total);
             System.out.println(eq.mostrar(total));
 
             sujeto.notificar(total);
@@ -161,4 +161,5 @@ public class Main{
             sc.close();
         }
     }
+
 }
