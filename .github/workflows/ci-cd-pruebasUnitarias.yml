@@ -2,6 +2,7 @@ name: Pruebas Unitarias
 
 on:
   workflow_dispatch:
+  push:
   pull_request:
 
 jobs:
@@ -18,8 +19,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Compilar proyecto
-      run: mvn compile
+    - name: Compilar proyecto con javac
+      run: |
+        mkdir -p target/classes
+        javac -d target/classes src/main/java/grupo1/*.java
       
     - name: Verificar calculos especificos
       run: |
