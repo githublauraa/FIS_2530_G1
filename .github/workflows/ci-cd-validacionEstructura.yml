@@ -1,6 +1,6 @@
 name: Validacion de Estructura
 
-on: 
+on:
   workflow_dispatch:
   pull_request:
 
@@ -15,12 +15,15 @@ jobs:
     - name: Validar estructura del proyecto
       run: |
         echo "Verificando estructura del proyecto..."
-        [ -f "pom.xml" ] && echo "pom.xml encontrado" || echo "pom.xml no encontrado"
         [ -d "src/main/java/grupo1" ] && echo "Directorio de fuente encontrado" || echo "Directorio de fuente no encontrado"
-        [ -f "src/main/java/grupo1/Main.java" ] && echo "Clase Main encontrada" || echo "Clase Main no encontrada"
+        [ -f "src/main/java/grupo1/Main.java" ] && echo "Clase Main encontrada" || echo "Clase Main no encontrado"
+        [ -f "src/main/java/grupo1/FuenteHuella.java" ] && echo "Interfaz FuenteHuella encontrada" || echo "Interfaz FuenteHuella no encontrado"
         
-    - name: Verificar compilacion
-      run: mvn compile -q
+    - name: Verificar compilacion con javac
+      run: |
+        mkdir -p target/classes
+        javac -d target/classes src/main/java/grupo1/*.java
+        echo "Compilacion exitosa"
       
     - name: Comprobar archivos compilados
       run: |
