@@ -141,7 +141,7 @@ public class Main{
             CalculadoraHuella calculadora = CalculadoraHuella.getInstance();
             double total = calculadora.calcularTotal(grupo) / personas;
 
-            Equivalencia eq = new ArbolesAdapter();
+            ArbolesAdapter eq = new ArbolesAdapter();
             System.out.println("\n========================================");
             System.out.printf(" Su huella total anual por persona: %.2f kgCO₂%n", total);
             System.out.println(eq.mostrar(total));
