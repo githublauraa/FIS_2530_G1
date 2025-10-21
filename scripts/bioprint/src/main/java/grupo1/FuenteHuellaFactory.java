@@ -1,12 +1,11 @@
 package grupo1;
 
 public class FuenteHuellaFactory {
-    // Crear fuente por consumo energético
+    //Energia
     public static FuenteHuella crearFuente(double luzKwh, double gasM3, double aguaM3) {
         return new FuenteHuella() {
             @Override
             public double calcularCO2() {
-                // Factores de emisión aproximados
                 double co2Luz = luzKwh * 0.5;
                 double co2Gas = gasM3 * 2.3;
                 double co2Agua = aguaM3 * 0.35;
@@ -15,7 +14,7 @@ public class FuenteHuellaFactory {
         };
     }
 
-    // Crear fuente por alimentación
+    //Alimentación
     public static FuenteHuella crearFuente(String tipoDieta, int frecuenciaCarneRoja) {
         return new FuenteHuella() {
             @Override
@@ -31,8 +30,17 @@ public class FuenteHuellaFactory {
         };
     }
 
-    //Crear fuente de transporte (usa estrategia ya creada)
+    //Transporte 
     public static FuenteHuella crearFuente(Transporte transporte) {
-        return transporte; // El transporte ya implementa FuenteHuella  
+        return transporte;  
+    }
+
+    public static FuenteHuella crearFuente(FuenteHuella fuente1, FuenteHuella fuente2) {
+        return new FuenteHuella() {
+            @Override
+            public double calcularCO2() {
+                return (fuente1.calcularCO2()+fuente2.calcularCO2());
+            }
+        };
     }
 }

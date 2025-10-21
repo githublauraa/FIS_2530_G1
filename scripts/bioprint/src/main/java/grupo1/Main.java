@@ -11,41 +11,101 @@ public class Main{
         Sujeto sujeto = new Sujeto();             // Observable
         sujeto.addObservador(new ConsolaObservador());
 
+
+        int personas=0;
+        double luz=0;
+        double gas=0;
+        double agua=0;
+        int fuenteEnergia=0;
+        int bombillos=0;
+        int aparatos=0;
+        int duchas=0;
+        int duracionDucha=0;
+
+
         System.out.println("CALCULADORA DE HUELLA DE CARBONO");
         System.out.println("========================================");
 
         try {
             // Datos generales
-            System.out.print("\nNúmero de personas en tu hogar: ");
-            int personas = sc.nextInt();
-            sc.nextLine();
-
+            while (true){
+                System.out.print("\nNúmero de personas en tu hogar: ");
+                personas = sc.nextInt();
+                sc.nextLine();
+                if(personas<0||personas>100){
+                    System.out.println("Por favor ingresar un numero entre 1 y 100");
+                    continue;
+                }
+                break;
+            }
             // ELECTRICIDAD
-            System.out.println("\nSección 1: Electricidad");
-            System.out.print("Consumo mensual de electricidad (kWh): ");
-            double luz = sc.nextDouble();
+            while(true){
+                System.out.println("\nSección 1: Electricidad");
+                System.out.print("Consumo mensual de electricidad (kWh): ");
+                luz = sc.nextDouble();
+                sc.nextLine();
+                if(luz<0||luz>1000){
+                    System.out.println("Por favor ingresar un numero entre 1 y 1000");
+                    continue;
+                }
+                break;
+            }
 
-            System.out.print("Consumo mensual de gas (m³): ");
-            double gas = sc.nextDouble();
+            while(true){
+                System.out.print("Consumo mensual de gas (m³): ");
+                gas = sc.nextDouble();
+                sc.nextLine();
+                if(gas<0||gas>10000){
+                    System.out.println("Por favor ingresar un numero entre 1 y 10000");
+                    continue;
+                }
+                break;
+            }
 
-            System.out.print("Consumo mensual de agua (m³): ");
-            double agua = sc.nextDouble();
-            sc.nextLine();
+            while(true){
+                System.out.print("Consumo mensual de agua (m³): ");
+                agua = sc.nextDouble();
+                sc.nextLine();
+                if(agua<0||agua>100){
+                    System.out.println("Por favor ingresar un numero entre 1 y 100");
+                    continue;
+                }
+                break;
+            }
+            while(true){
+                System.out.println("Fuente de energía principal:");
+                System.out.println("1. Hidroeléctrica  2. Solar  3. Eólica  4. Gas/Carbón");
+                fuenteEnergia = sc.nextInt();
+                sc.nextLine();
+                if(fuenteEnergia<1||fuenteEnergia>4){
+                    System.out.println("Por favor elegir entre las opciones dadas");
+                    continue;
+                }
+                break;
+            }
 
-            System.out.println("Fuente de energía principal:");
-            System.out.println("1. Hidroeléctrica  2. Solar  3. Eólica  4. Gas/Carbón");
-            int fuenteEnergia = sc.nextInt();
-            sc.nextLine();
-
-            System.out.println("¿Usas bombillos LED o ahorradores?");
-            System.out.println("1. Todos  2. Algunos  3. Ninguno");
-            int bombillos = sc.nextInt();
-            sc.nextLine();
-
-            System.out.println("¿Dejas aparatos enchufados cuando no los usas?");
-            System.out.println("1. Nunca  2. A veces  3. Siempre");
-            int aparatos = sc.nextInt();
-            sc.nextLine();
+            while(true){
+                System.out.println("¿Usas bombillos LED o ahorradores?");
+                System.out.println("1. Todos  2. Algunos  3. Ninguno");
+                bombillos = sc.nextInt();
+                sc.nextLine();
+                if(bombillos<1||bombillos>3){
+                    System.out.println("Por favor elegir entre las opciones dadas");
+                    continue;
+                }
+                break;
+            }
+            while(true){
+                System.out.println("¿Dejas aparatos enchufados cuando no los usas?");
+                System.out.println("1. Nunca  2. A veces  3. Siempre");
+                aparatos = sc.nextInt();
+                sc.nextLine();
+                if(aparatos<1||aparatos>3){
+                    System.out.println("Por favor elegir entre las opciones dadas");
+                    continue;
+                }
+                break;
+            }
 
             double ajusteEnergia = 1.0;
             if (fuenteEnergia == 4) ajusteEnergia += 0.2;
@@ -56,12 +116,26 @@ public class Main{
             grupo.addFuente(FuenteHuellaFactory.crearFuente(luzAjustada, gas, agua));
 
             // AGUA
-            System.out.println("\nSección 2: Agua");
-            System.out.print("Número de duchas al día (por persona): ");
-            int duchas = sc.nextInt();
+            while(true){
+                System.out.println("\nSección 2: Agua");
+                System.out.print("Número de duchas al día (por persona): ");
+                duchas = sc.nextInt();
+                if(duchas<0||duchas>5){
+                    System.out.println("Por favor ingresar un numero entre 0 y 5");
+                    continue;
+                }
+                break;
+            }
 
-            System.out.print("Duración promedio de cada ducha (minutos): ");
-            int duracionDucha = sc.nextInt();
+            while(true){
+                System.out.print("Duración promedio de cada ducha (minutos): ");
+                duracionDucha = sc.nextInt();
+                if(aparatos<1||aparatos>3){
+                    System.out.println("Por favor elegir entre las opciones dadas");
+                    continue;
+                }
+                break;
+            }
 
             System.out.print("¿Tienes dispositivos ahorradores de agua? (1=Sí, 2=No): ");
             int ahorrador = sc.nextInt();
@@ -143,7 +217,7 @@ public class Main{
 
             ArbolesAdapter eq = new ArbolesAdapter();
             System.out.println("\n========================================");
-            System.out.printf(" Su huella total anual por persona: %.2f kgCO₂%n", total);
+            System.out.printf(" Su huella total anual por persona: %.2f kgCO2%n", total);
             System.out.println(eq.mostrar(total));
 
             sujeto.notificar(total);
