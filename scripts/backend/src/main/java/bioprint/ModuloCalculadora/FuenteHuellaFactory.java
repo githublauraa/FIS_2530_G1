@@ -7,7 +7,7 @@ public class FuenteHuellaFactory {
             @Override
             public double calcularCO2() {
                 double co2Luz = luzKwh * 0.5;
-                double co2Gas = gasM3 * 2.3;
+                double co2Gas = gasM3 * 2.3; 
                 double co2Agua = aguaM3 * 0.35;
                 return co2Luz + co2Gas + co2Agua;
             }

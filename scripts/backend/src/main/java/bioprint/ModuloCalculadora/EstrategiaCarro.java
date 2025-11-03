@@ -2,5 +2,8 @@ package bioprint.ModuloCalculadora;
 
 public class EstrategiaCarro implements EstrategiaTransporte {
     @Override
-    public double calcularCO2(double km) { return km * 0.21; }
+    public double calcularCO2(double km) { 
+        if(km<0) return 0;
+        return km*0.21; 
+    }
 }
