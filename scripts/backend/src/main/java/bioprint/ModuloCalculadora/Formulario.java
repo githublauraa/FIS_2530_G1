@@ -10,7 +10,6 @@ public class Formulario {
         Sujeto sujeto = new Sujeto();             // Observable
         sujeto.addObservador(new ConsolaObservador());
 
-
         int personas=0;
         double luz=0;
         double gas=0;
