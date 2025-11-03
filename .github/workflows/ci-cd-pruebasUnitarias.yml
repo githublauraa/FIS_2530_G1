@@ -32,7 +32,7 @@ jobs:
         echo "🧪 Creando clase de prueba..."
         mkdir -p target/test-classes
         cat > target/test-classes/TestCalculos.java << 'EOF'
-        import grupo1.*;
+        import ModuloCalculadora.*;
 
         public class TestCalculos {
             public static void main(String[] args) {
