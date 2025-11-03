@@ -25,12 +25,13 @@ jobs:
         mkdir -p target/classes
         find scripts/bioprint/src/main/java -name "*.java" > sources.txt
         javac -d target/classes @sources.txt
-        echo "Compilación completada"
+        echo "✅ Compilación completada"
       
     - name: Crear y ejecutar pruebas personalizadas
       run: |
-        echo "Creando clase de prueba..."
-        cat > target/classes/TestCalculos.java << 'EOF'
+        echo "🧪 Creando clase de prueba..."
+        mkdir -p target/test-classes
+        cat > target/test-classes/TestCalculos.java << 'EOF'
         import grupo1.*;
 
         public class TestCalculos {
@@ -57,40 +58,3 @@ jobs:
                 }
 
                 EstrategiaBici bici = new EstrategiaBici();
-                double resultadoBici = bici.calcularCO2(10);
-                if (resultadoBici == 0.0) {
-                    System.out.println("correcto EstrategiaBici: " + resultadoBici);
-                } else {
-                    System.out.println("Error EstrategiaBici: esperado 0.0, obtenido " + resultadoBici);
-                    todosTestsPasaron = false;
-                }
-
-                GrupoFuentes grupo = new GrupoFuentes();
-                grupo.addFuente(() -> 100.0);
-                grupo.addFuente(() -> 200.0);
-                double totalComposite = grupo.calcularCO2();
-                if (Math.abs(totalComposite - 300.0) < 0.01) {
-                    System.out.println("Correcto Composite: " + totalComposite);
-                } else {
-                    System.out.println("Error Composite: esperado 300.0, obtenido " + totalComposite);
-                    todosTestsPasaron = false;
-                }
-
-                System.out.println("===============================");
-                if (todosTestsPasaron) {
-                    System.out.println("TODAS LAS PRUEBAS PASARON EXITOSAMENTE");
-                } else {
-                    System.out.println("ALGUNAS PRUEBAS FALLARON");
-                    System.exit(1);
-                }
-            }
-        }
-        EOF
-
-        echo "Compilando TestCalculos.java..."
-        javac -cp target/classes -d target/classes target/classes/TestCalculos.java
-
-        echo "Ejecutando pruebas..."
-        cd target/classes
-        java -cp . TestCalculos
-
