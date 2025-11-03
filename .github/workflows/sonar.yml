@@ -22,7 +22,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Compilar con Maven y analizar con SonarQube
-        working-directory: scripts/mi-proyecto-spring
+        working-directory: scripts/backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
