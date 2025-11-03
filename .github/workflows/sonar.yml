@@ -1,33 +1,49 @@
-name: Análisis con SonarQube (Maven)
+name: Construcción
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  sonar:
-    name: Ejecutar análisis de SonarQube
+  compilacion:
+    name: Compilar y analizar
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout del código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Importante para análisis más preciso
 
       - name: Configurar JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'zulu' # Puedes usar temurin, adopt, etc.
 
-      - name: Compilar con Maven y analizar con SonarQube
+      - name: Cache de SonarQube
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache de Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Compilar y analizar con SonarQube
         working-directory: scripts/backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          mvn -B clean verify sonar:sonar \
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=Bioprint_Sonar \
             -Dsonar.projectName="Bioprint_Sonar" \
-            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
