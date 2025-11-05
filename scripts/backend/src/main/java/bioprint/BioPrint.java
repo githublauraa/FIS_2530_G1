@@ -28,6 +28,8 @@ public class BioPrint {
         usuarioService.eliminar(creado.getId());
         System.out.println("Usuario eliminado con ID: " + creado.getId());
         */
+        //  Cerrar el contexto y salir correctamente (importante para pipelines)
+        SpringApplication.exit(context, () -> 0);
     }
 }
 
