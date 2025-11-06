@@ -32,7 +32,7 @@ public class MenuUsuarios {
                 System.out.println("-----------------------------------------------------------------");
                 System.out.println("ingrese su usuario (o \"salir\" para volver)");
                 nombre[0]=sc.nextLine();
-                if(nombre.equals("salir")){
+                if(nombre[0].equals("salir")){
                     return false;
                 }
                 System.out.println("-----------------------------------------------------------------");
@@ -43,7 +43,7 @@ public class MenuUsuarios {
                 }
                 if(servicio.validarUsuario(nombre[0], contrasena)){
                     System.out.println("-----------------------------------------------------------------");
-                    System.out.println("Sesion iniciada como: "+nombre);
+                    System.out.println("Sesion iniciada como: "+nombre[0]);
                     try {
                         TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
                         botsApi.registerBot(bot);
@@ -51,7 +51,7 @@ public class MenuUsuarios {
                     } catch (TelegramApiException e) {
                         e.printStackTrace();
                     }
-                    bot.enviarMensaje("Usuario "+nombre+" acaba de iniciar sesion");
+                    bot.enviarMensaje("Usuario "+nombre[0]+" acaba de iniciar sesion");
                     return true;
                 }
                 System.out.println("-----------------------------------------------------------------");
@@ -62,7 +62,7 @@ public class MenuUsuarios {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("ingrese el nuevo usuario (o \"salir\" para volver)");
         nombre[0]=sc.nextLine();
-        if(nombre.equals("salir")){
+        if(nombre[0].equals("salir")){
             return false;
         }
         user.setNombre(nombre[0]);
@@ -84,7 +84,7 @@ public class MenuUsuarios {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-        bot.enviarMensaje("Nuevo usuario agregado a la base de datos: "+nombre);
+        bot.enviarMensaje("Nuevo usuario agregado a la base de datos: "+nombre[0]);
         return true;
     }
 }

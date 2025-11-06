@@ -1,4 +1,4 @@
-package mascota;
+package bioprint.Frontend.mascota;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

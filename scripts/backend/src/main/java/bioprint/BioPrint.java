@@ -39,7 +39,6 @@ public class BioPrint {
         usuarioService.eliminar(creado.getId());
         System.out.println("Usuario eliminado con ID: " + creado.getId());
         */
-        
     }
 }
 

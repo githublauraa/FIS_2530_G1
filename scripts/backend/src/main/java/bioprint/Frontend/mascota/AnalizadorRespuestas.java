@@ -1,4 +1,4 @@
-package mascota;
+package bioprint.Frontend.mascota;
 
 public class AnalizadorRespuestas {
 

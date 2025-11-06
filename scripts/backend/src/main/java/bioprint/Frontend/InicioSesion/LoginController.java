@@ -1,4 +1,4 @@
-package InicioSesion;
+package bioprint.Frontend.InicioSesion;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

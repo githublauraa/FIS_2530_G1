@@ -14,9 +14,10 @@ public class Notificador extends TelegramLongPollingBot {
     public Notificador() {
         this.token= "8431776515:AAHvy_hCU9ghIKs_Wn3LODq4jM1CKKjc994";
     }
-
+    
     @Override
     public void onUpdateReceived(Update update) {
+        /* 
         // Solo responde si recibe texto
         if (update.hasMessage() && update.getMessage().hasText()) {
             String mensaje = update.getMessage().getText();
@@ -34,6 +35,7 @@ public class Notificador extends TelegramLongPollingBot {
                 }
             }
         }
+        */
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Formulario {
-    private static boolean validar(int numero, int max, int min, boolean opciones) {
+    public static boolean validar(int numero, int max, int min, boolean opciones) {
         if (numero > max || numero < min) {
             if (opciones) {
                 System.out.println("Por favor elegir entre las opciones dadas");
@@ -16,7 +16,7 @@ public class Formulario {
         return true;
     }
 
-    private static boolean validar(double numero, double max, double min, boolean opciones) {
+    public static boolean validar(double numero, double max, double min, boolean opciones) {
         if (numero > max || numero < min) {
             if (opciones) {
                 System.out.println("Por favor elegir entre las opciones dadas");

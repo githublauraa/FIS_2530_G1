@@ -70,7 +70,22 @@
 			<artifactId>telegrambotsextensions</artifactId>
 			<version>6.8.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.javaparser</groupId>
+			<artifactId>javaparser-core</artifactId>
+			<version>3.24.0</version>  <!-- Asegúrate de usar la versión más reciente -->
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>17.0.2</version> <!-- Asegúrate de usar la versión que necesitas -->
+		</dependency>
 
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>17.0.2</version> <!-- La misma versión de javafx-controls -->
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -97,6 +112,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.5</version> <!-- Asegúrate de usar una versión reciente -->
+				<configuration>
+					<mainClass>com.tuempresa.MainApp</mainClass> <!-- La clase principal con el método main -->
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,4 +1,4 @@
-package mascota;
+package bioprint.Frontend.mascota;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

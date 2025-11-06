@@ -1,4 +1,4 @@
-package InicioSesion;
+package bioprint.Frontend.InicioSesion;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
