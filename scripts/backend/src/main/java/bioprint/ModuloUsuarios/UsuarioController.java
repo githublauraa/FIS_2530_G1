@@ -31,10 +31,5 @@ public class UsuarioController {
         return service.guardar(usuario);
     }
 
-    // Eliminar un usuario
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        service.eliminar(id);
-    }
 }
 

@@ -1,34 +1,83 @@
 package bioprint.ModuloUsuarios;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class UsuarioServiceTest {
+class UsuarioServiceTest {
 
-    @Test
-    void testValidarUsuarioExitoso() {
-        UsuarioRepository repo = mock(UsuarioRepository.class);
-        Usuario usuario = new Usuario();
-        usuario.setNombre("Juan");
-        usuario.setContrasena("123");
+    @Mock
+    private UsuarioRepository repo;
 
-        when(repo.findByNombreAndContrasena("Juan", "123")).thenReturn(usuario);
+    @InjectMocks
+    private UsuarioService service;
 
-        UsuarioService service = new UsuarioService(repo);
-
-        assertTrue(service.validarUsuario("Juan", "123"));
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testValidarUsuarioFallido() {
-        UsuarioRepository repo = mock(UsuarioRepository.class);
-        when(repo.findByNombreAndContrasena("Juan", "123")).thenReturn(null);
+    void testListarDevuelveTodosLosUsuarios() {
+        List<Usuario> listaMock = Arrays.asList(
+                new Usuario("juan", "1234"),
+                new Usuario("ana", "abcd")
+        );
 
-        UsuarioService service = new UsuarioService(repo);
+        when(repo.findAll()).thenReturn(listaMock);
 
-        assertFalse(service.validarUsuario("Juan", "123"));
+        List<Usuario> resultado = service.listar();
+
+        assertEquals(2, resultado.size());
+        verify(repo, times(1)).findAll();
+    }
+
+    @Test
+    void testGuardarGuardaYDevuelveUsuario() {
+        Usuario u = new Usuario("carlos", "pass");
+        when(repo.save(u)).thenReturn(u);
+
+        Usuario resultado = service.guardar(u);
+
+        assertEquals(u, resultado);
+        verify(repo, times(1)).save(u);
+    }
+
+    @Test
+    void testValidarUsuarioValido() {
+        String nombre = "pepe";
+        String contrasena = "123";
+        Usuario mockUsuario = new Usuario(nombre, contrasena);
+
+        when(repo.findByNombreAndContrasena(nombre, contrasena))
+                .thenReturn(mockUsuario);
+
+        boolean valido = service.validarUsuario(nombre, contrasena);
+
+        assertTrue(valido);
+        verify(repo).findByNombreAndContrasena(nombre, contrasena);
+    }
+
+    @Test
+    void testValidarUsuarioInvalido() {
+        String nombre = "pepe";
+        String contrasena = "123";
+
+        when(repo.findByNombreAndContrasena(nombre, contrasena))
+                .thenReturn(null);
+
+        boolean valido = service.validarUsuario(nombre, contrasena);
+
+        assertFalse(valido);
+        verify(repo).findByNombreAndContrasena(nombre, contrasena);
     }
 }
