@@ -30,7 +30,7 @@ public class LoginController {
 
     @FXML
     private void iniciarSesion(ActionEvent event) {
-        System.out.println("✅ Botón 'Iniciar sesión' presionado");
+        System.out.println("Botón 'Iniciar sesión' presionado");
 
         HttpURLConnection con = null;
         try {
@@ -77,7 +77,7 @@ public class LoginController {
                     stage.show();
 
                 } else {
-                    mostrarAlerta("Error", "Usuario o contraseña incorrecta ❌");
+                    mostrarAlerta("Error", "Usuario o contraseña incorrecta ");
                     System.out.println("Usuario NO encontrado en la base de datos.");
                 }
 
@@ -118,7 +118,7 @@ public class LoginController {
     @FXML
     public void initialize() {
         try {
-            Image img = new Image("file:/C:/Users/truji/OneDrive/Desktop/clases universidad/Fundamentos Ingeniería de SW/frontend/frontend/src/references/feliz.png");
+            Image img = new Image("/references/feliz.png");
             imagenCircular.setFill(new ImagePattern(img));
         } catch (Exception e) {
             System.out.println("No se pudo cargar la imagen: " + e.getMessage());
@@ -126,5 +126,6 @@ public class LoginController {
         }
     }
 }
+
 
 
