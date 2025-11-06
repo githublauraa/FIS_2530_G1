@@ -17,7 +17,7 @@ public class MascotaController {
     private String nivelActual = "medio";
     private int mensajeIndex = 0;
 
-    private final String basePath = "C:/Users/truji/OneDrive/Desktop/clases universidad/Fundamentos Ingeniería de SW/frontend/frontend/src/references/";
+    private final String basePath = "scripts/backend/src/main/resources/references";
 
     public void initialize() {
         mostrarMascota();
@@ -49,4 +49,5 @@ public class MascotaController {
         }
     }
 }
+
 
