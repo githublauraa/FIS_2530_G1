@@ -140,7 +140,7 @@ public class RegistroController {
     @FXML
     public void initialize() {
         try {
-            Image img = new Image("file:/C:/Users/truji/OneDrive/Desktop/clases universidad/Fundamentos Ingeniería de SW/frontend/frontend/src/references/feliz.png");
+            Image img = new Image("/references/feliz.png");
             imagenMascota.setFill(new ImagePattern(img));
         } catch (Exception e) {
             System.out.println("No se pudo cargar la imagen: " + e.getMessage());
@@ -148,4 +148,5 @@ public class RegistroController {
         }
     }
 }
+
 
