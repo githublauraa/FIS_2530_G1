@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="405.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InicioSesion.LoginController">
+
+   <children>
+      <ImageView fitHeight="425.0" fitWidth="613.0" layoutX="-2.0" layoutY="-7.0" mouseTransparent="true" preserveRatio="true">
+         <image>
+            <Image url="@../references/fondo.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" />
+
+      <Pane layoutX="296.0" layoutY="94.0" prefHeight="226.0" prefWidth="254.0" style="-fx-background-color: black;">
+         <children>
+
+            <Label layoutX="21.0" text="Iniciar Sesión" textFill="WHITE">
+               <font>
+                  <Font name="Yu Gothic UI Semilight" size="36.0" />
+               </font>
+            </Label>
+
+            <Label layoutX="22.0" layoutY="59.0" text="Usuario" textFill="WHITE" />
+            <TextField fx:id="txtUsuario" layoutX="22.0" layoutY="79.0" prefWidth="199.0" />
+
+            <Label layoutX="22.0" layoutY="104.0" text="Contraseña" textFill="WHITE" />
+            <PasswordField fx:id="txtPassword" layoutX="22.0" layoutY="124.0" prefWidth="199.0" />
+
+            <Button fx:id="btnIniciar" layoutX="22.0" layoutY="185.0" onAction="#iniciarSesion" text="Iniciar sesión" />
+
+            <Button fx:id="btnRegistrar" layoutX="146.0" layoutY="185.0" onAction="#onIrARegistro" text="Registrarse" />
+
+         </children>
+      </Pane>
+
+      <!-- 🔹 Imagen circular (avatar) -->
+      <Circle fx:id="imagenCircular" fill="DODGERBLUE" layoutX="152.0" layoutY="204.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+
+      <!-- 🔹 Panel inferior con mensaje -->
+      <Pane layoutX="25.0" layoutY="283.0" prefHeight="42.0" prefWidth="254.0" style="-fx-background-color: #4ED7F1; -fx-background-radius: 19;">
+         <children>
+            <Label fx:id="mensajeLabel" layoutX="7.0" layoutY="11.0" prefWidth="400.0" style="-fx-font-size: 15px; -fx-text-fill: #1A4D2E;" text="Hola, ¿estas listo para inciar sesión?" wrapText="true" />
+         </children>
+      </Pane>
+
+   </children>
+</AnchorPane>
