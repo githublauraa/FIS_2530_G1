@@ -44,13 +44,6 @@ public class MenuUsuarios {
                 if(servicio.validarUsuario(nombre[0], contrasena)){
                     System.out.println("-----------------------------------------------------------------");
                     System.out.println("Sesion iniciada como: "+nombre[0]);
-                    try {
-                        TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-                        botsApi.registerBot(bot);
-
-                    } catch (TelegramApiException e) {
-                        e.printStackTrace();
-                    }
                     bot.enviarMensaje("Usuario "+nombre[0]+" acaba de iniciar sesion");
                     return true;
                 }
@@ -77,13 +70,6 @@ public class MenuUsuarios {
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Usuario creado, iniciando Sesion");
 
-        try {
-            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(bot);
-
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
         bot.enviarMensaje("Nuevo usuario agregado a la base de datos: "+nombre[0]);
         return true;
     }

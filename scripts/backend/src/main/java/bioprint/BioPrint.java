@@ -3,6 +3,9 @@ package bioprint;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import bioprint.ModuloUsuarios.*;
 import bioprint.ModuloCalculadora.*;
@@ -13,12 +16,22 @@ public class BioPrint {
         // Inicializar Spring Boot y obtener el contexto
         ApplicationContext context = SpringApplication.run(BioPrint.class, args);
         Notificador bot = new Notificador();
+        
         // Obtener el bean UsuarioService
         UsuarioService servicio = context.getBean(UsuarioService.class);
         PuntajeService puntajeService = context.getBean(PuntajeService.class);
 
         boolean[] salirApp={false};
         String[] nombre={""};
+
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(bot);
+
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        
         while(!salirApp[0]){
             while(!MenuUsuarios.menu(servicio, salirApp, bot, nombre));
             if(!salirApp[0]){

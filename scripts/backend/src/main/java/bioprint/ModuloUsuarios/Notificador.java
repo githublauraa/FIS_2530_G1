@@ -53,7 +53,7 @@ public class Notificador extends TelegramLongPollingBot {
         execute(mensaje);
         System.out.println("✅ Mensaje enviado a " + chatId);
     } catch (TelegramApiException e) {
-        e.printStackTrace();
+        System.out.println("no se pudo enviar la notificacion");
     }
 }
 
