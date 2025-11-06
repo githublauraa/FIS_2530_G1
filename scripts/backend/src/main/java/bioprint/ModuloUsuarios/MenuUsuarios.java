@@ -2,30 +2,36 @@ package bioprint.ModuloUsuarios;
 
 import java.util.Scanner;
 
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
 public class MenuUsuarios {
-    public static boolean menu(UsuarioService servicio){
-        boolean salir=false;
+    public static boolean menu(UsuarioService servicio,boolean[] salir, Notificador bot, String[] nombre){
         Scanner sc = new Scanner(System.in);
         int opcion=0;
         while(true){
             System.out.println("-----------------------------------------------------------------");
-            System.out.println("Que desea hacer?\n1.iniciar sesion\n2.registrarse");
+            System.out.println("Que desea hacer?\n1.Iniciar sesion\n2.Registrarse\n3.Salir del programa");
             opcion=sc.nextInt();
             sc.nextLine();
-            if(opcion<1||opcion>2){
+            if(opcion<1||opcion>3){
                 System.out.println("-----------------------------------------------------------------");
                 System.out.println("Por favor seleccionar entre las opciones dadas");
                 continue;
             }
             break;
         }
-        String nombre="";
+        if(opcion==3){
+            salir[0]=true;
+            return true;
+        }
         String contrasena="";
         if(opcion==1){
             while(true){
                 System.out.println("-----------------------------------------------------------------");
                 System.out.println("ingrese su usuario (o \"salir\" para volver)");
-                nombre=sc.nextLine();
+                nombre[0]=sc.nextLine();
                 if(nombre.equals("salir")){
                     return false;
                 }
@@ -35,9 +41,17 @@ public class MenuUsuarios {
                 if(contrasena.equals("salir")){
                     return false;
                 }
-                if(servicio.validarUsuario(nombre, contrasena)){
+                if(servicio.validarUsuario(nombre[0], contrasena)){
                     System.out.println("-----------------------------------------------------------------");
                     System.out.println("Sesion iniciada como: "+nombre);
+                    try {
+                        TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+                        botsApi.registerBot(bot);
+
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                    bot.enviarMensaje("Usuario "+nombre+" acaba de iniciar sesion");
                     return true;
                 }
                 System.out.println("-----------------------------------------------------------------");
@@ -47,11 +61,11 @@ public class MenuUsuarios {
         Usuario user=new Usuario();
         System.out.println("-----------------------------------------------------------------");
         System.out.println("ingrese el nuevo usuario (o \"salir\" para volver)");
-        nombre=sc.nextLine();
+        nombre[0]=sc.nextLine();
         if(nombre.equals("salir")){
             return false;
         }
-        user.setNombre(nombre);
+        user.setNombre(nombre[0]);
         System.out.println("-----------------------------------------------------------------");
         System.out.println("ingrese la contrasena (o \"salir\" para volver)");
         contrasena=sc.nextLine();
@@ -62,6 +76,15 @@ public class MenuUsuarios {
         servicio.guardar(user);
         System.out.println("-----------------------------------------------------------------");
         System.out.println("Usuario creado, iniciando Sesion");
+
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(bot);
+
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        bot.enviarMensaje("Nuevo usuario agregado a la base de datos: "+nombre);
         return true;
     }
 }
