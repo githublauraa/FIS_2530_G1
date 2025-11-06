@@ -20,10 +20,6 @@ public class UsuarioService {
         return repo.save(u);
     }
 
-    public void eliminar(Long id) {
-        repo.deleteById(id);
-    }
-
     public boolean validarUsuario(String nombre, String contrasena) {
         Usuario usuario = repo.findByNombreAndContrasena(nombre, contrasena);
         if (usuario != null) {
